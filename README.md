@@ -1,4 +1,29 @@
 # examon
-Examon是一个基于移动端布局的纯原生H5页面，它提供了基本的考试和答题功能，并通过参数模型对其进行配置
 
-它使用了jQuery作为基础支持，同时集成了LaTeX相关模块，支持公式的显示
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
+
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Run your tests
+```
+yarn run test
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

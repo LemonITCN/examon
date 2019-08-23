@@ -1,5 +1,6 @@
 <template>
   <div class="exam-view-impl">
+    <v-btn color="primary">hello</v-btn>
     <exam-title-view class="exam-title-view"></exam-title-view>
     <exam-answer-options-view class="exam-answer-view"></exam-answer-options-view>
   </div>

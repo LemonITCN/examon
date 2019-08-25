@@ -1,0 +1,95 @@
+{
+  "name": "一场测试考试",
+  "countDownTimeSeconds": 0,
+  "isHaveLatex": false,
+  "questionList": [
+    {
+      "questionTitle": "1 + 1",
+      "imageUrl": "",
+      "audioUrl": "",
+      "choiceList": [
+        {
+          "content": "2"
+        },
+        {
+          "content": "3"
+        },
+        {
+          "content": "4"
+        },
+        {
+          "content": "5"
+        }
+      ],
+      "answerList": [
+        0
+      ]
+    },
+    {
+      "questionTitle": "1 + 2 + 3 + 4",
+      "imageUrl": "",
+      "audioUrl": "",
+      "choiceList": [
+        {
+          "content": "32"
+        },
+        {
+          "content": "55"
+        },
+        {
+          "content": "hello"
+        },
+        {
+          "content": "10"
+        }
+      ],
+      "answerList": [
+        3
+      ]
+    },
+    {
+      "questionTitle": "1 + 1 - 1 * 1",
+      "imageUrl": "",
+      "audioUrl": "",
+      "choiceList": [
+        {
+          "content": "8"
+        },
+        {
+          "content": "0"
+        },
+        {
+          "content": "2"
+        },
+        {
+          "content": "25"
+        }
+      ],
+      "answerList": [
+        2
+      ]
+    },
+    {
+      "questionTitle": "请问8 + 8等于几",
+      "imageUrl": "",
+      "audioUrl": "",
+      "choiceList": [
+        {
+          "content": "等于32"
+        },
+        {
+          "content": "等于16"
+        },
+        {
+          "content": "等于88888"
+        },
+        {
+          "content": "等于一万"
+        }
+      ],
+      "answerList": [
+        1
+      ]
+    }
+  ]
+}

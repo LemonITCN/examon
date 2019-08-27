@@ -20,6 +20,9 @@ export default class ExamQuestionCardView extends Vue {
   @Prop()
   question!: ExamQuestion
 
+  gotoNextQuestion() {
+    console.log('next')
+  }
 }
 </script>
 
@@ -34,7 +37,7 @@ export default class ExamQuestionCardView extends Vue {
   }
 
   .exam-answer-view {
-    height: 320px;
+    height: 300px;
   }
 
 </style>

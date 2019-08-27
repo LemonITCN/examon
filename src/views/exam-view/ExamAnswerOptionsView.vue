@@ -1,6 +1,7 @@
 <template>
   <div class="exam-answer-options-view-impl">
-    <div class="choice-option" v-for="(choice, cIndex) in question.choiceList" :key="cIndex + ''">
+    <div class="choice-option" v-for="(choice, cIndex) in question.choiceList" :key="cIndex + ''"
+         @click="gotoNextQuestion()">
       {{choice.content}}
       <div class="choice-no">{{String.fromCharCode(65 + cIndex)}}</div>
     </div>
@@ -15,6 +16,11 @@ import ExamQuestion from '@/model/ExamQuestion'
 export default class ExamAnswerOptionsView extends Vue {
   @Prop()
   question!: ExamQuestion
+
+  gotoNextQuestion() {
+    this.$parent.gotoNextQuestion()
+    console.log('gogogo')
+  }
 }
 </script>
 
@@ -23,15 +29,15 @@ export default class ExamAnswerOptionsView extends Vue {
   }
 
   .choice-option {
-    height: 79px;
-    line-height: 80px;
+    height: 74px;
+    line-height: 74px;
     border-bottom: 1px solid #d0d0d0;
     font-size: 18px;
     text-align: center;
     position: relative;
   }
 
-  .choice-no{
+  .choice-no {
     position: absolute;
     top: 0;
     left: 20px;

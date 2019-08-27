@@ -23,6 +23,7 @@ import ExamStatusBarView from '@/views/exam-view/ExamStatusBarView.vue'
 import ExamQuestionCardView from '@/views/exam-view/ExamQuestionCardView.vue'
 import ExamQuestion from '@/model/ExamQuestion'
 import ExamInfo from '@/model/ExamInfo'
+import ExamService from '@/service/ExamService'
 
 @Component({
   components: {ExamQuestionCardView, ExamStatusBarView}
@@ -34,6 +35,7 @@ export default class ExamView extends Vue {
 
   mounted() {
     this.examInfo = JSON.parse('{"name":"一场测试考试","countDownTimeSeconds":0,"isHaveLatex":false,"questionList":[{"questionTitle":"1 + 1","imageUrl":"","audioUrl":"","choiceList":[{"content":"2"},{"content":"3"},{"content":"4"},{"content":"5"}],"answerList":[0]},{"questionTitle":"1 + 2 + 3 + 4","imageUrl":"","audioUrl":"","choiceList":[{"content":"32"},{"content":"55"},{"content":"hello"},{"content":"10"}],"answerList":[3]},{"questionTitle":"1 + 1 - 1 * 1","imageUrl":"","audioUrl":"","choiceList":[{"content":"8"},{"content":"0"},{"content":"2"},{"content":"25"}],"answerList":[2]},{"questionTitle":"请问8 + 8等于几","imageUrl":"","audioUrl":"","choiceList":[{"content":"等于32"},{"content":"等于16"},{"content":"等于88888"},{"content":"等于一万"}],"answerList":[1]}]}')
+    ExamService.initExamInfo(this.examInfo)
     this.questionList = this.examInfo.questionList.reverse()
     for (let i = 0; i < this.examInfo.questionList.length; i++) {
       setTimeout(() => {

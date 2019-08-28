@@ -4,10 +4,12 @@
       {{examService.getExamInfo().questionList.length}}
     </div>
     <div class="timer-area">
-      40:53
+      {{fixZero(Math.floor(examService.getTimerSeconds() / 60))}}:
+      {{fixZero(examService.getTimerSeconds() % 60)}}
     </div>
     <div class="title-type">
-      {{examService.getCurrentQuestion() !== undefined ? (examService.getCurrentQuestion().answerList.length > 1 ? '多选题' : '单选题') : '初始化...'}}
+      {{examService.getCurrentQuestion() !== undefined ? (examService.getCurrentQuestion().answerList.length > 1 ? '多选题'
+      : '单选题') : '初始化...'}}
     </div>
   </div>
 </template>
@@ -19,6 +21,10 @@ import ExamService from '@/service/ExamService'
 @Component
 export default class ExamStatusBarView extends Vue {
   examService = ExamService
+
+  fixZero(num: number): string {
+    return (num < 10 ? '0' : '') + num
+  }
 }
 </script>
 

@@ -46,9 +46,6 @@ export default class ExamTitleView extends Vue {
     }
   }
 
-  beforeDestroy() {
-    console.log('1122')
-  }
 }
 </script>
 

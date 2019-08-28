@@ -6,6 +6,8 @@ import ExamQuestion from '@/model/ExamQuestion'
 
 export default class ExamService {
 
+  private static examInterval: any
+
   public static initExamInfo(examInfo: ExamInfo): void {
     $store.commit(NameUtil.CSCK(
       StoreDefineExam.SET_EXAM_INFO
@@ -14,6 +16,7 @@ export default class ExamService {
       StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX
     ), 0)
     document.title = examInfo.name
+    this.startTimer(examInfo.countDownTimeSeconds)
   }
 
   public static getExamInfo(): ExamInfo {
@@ -40,6 +43,31 @@ export default class ExamService {
 
   public static getCurrentQuestion(): ExamQuestion {
     return this.getExamInfo().questionList[this.getCurrentQuestionIndex()]
+  }
+
+  public static getTimerSeconds(): number {
+    return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_TIMER_SECONDS)]
+  }
+
+  public static stopExam(): number {
+    this.endTimer()
+    return this.getTimerSeconds()
+  }
+
+  private static startTimer(countDownTimeSeconds: number) {
+    $store.commit(NameUtil.CSCK(StoreDefineExam.SET_EXAM_TIMER_SECONDS), countDownTimeSeconds)
+    let subValue = countDownTimeSeconds === 0 ? 1 : -1
+    ExamService.examInterval = setInterval(() => {
+      $store.commit(NameUtil.CSCK(StoreDefineExam.SET_EXAM_TIMER_SECONDS), this.getTimerSeconds() + subValue)
+      if (subValue === -1 && this.getTimerSeconds() === 0) {
+        this.stopExam()
+      }
+    }, 1000)
+  }
+
+  private static endTimer(): number {
+    clearInterval(this.examInterval)
+    return this.getTimerSeconds()
   }
 
 }

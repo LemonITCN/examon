@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator'
+import {Component, Prop, Vue} from 'vue-property-decorator'
 import ExamQuestion from '@/model/ExamQuestion'
 import ExamTitleView from '@/views/exam-view/ExamQuestionTitleView.vue'
 import ExamAnswerOptionsView from '@/views/exam-view/ExamAnswerOptionsView.vue'
@@ -16,13 +16,7 @@ import ExamAnswerOptionsView from '@/views/exam-view/ExamAnswerOptionsView.vue'
 })
 export default class ExamQuestionCardView extends Vue {
   @Prop()
-  qIndex!: number
-  @Prop()
   question!: ExamQuestion
-
-  gotoNextQuestion() {
-    console.log('next')
-  }
 }
 </script>
 

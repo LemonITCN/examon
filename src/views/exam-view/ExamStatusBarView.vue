@@ -1,18 +1,24 @@
 <template>
   <div class="exam-status-bar-view-impl">
-    <div class="number-area">100 / 100</div>
+    <div class="number-area">{{examService.getCurrentQuestionIndex() + 1}} /
+      {{examService.getExamInfo().questionList.length}}
+    </div>
     <div class="timer-area">
       40:53
     </div>
-    <div class="title-type">单选题</div>
+    <div class="title-type">
+      {{examService.getCurrentQuestion() !== undefined ? (examService.getCurrentQuestion().answerList.length > 1 ? '多选题' : '单选题') : '初始化...'}}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator'
+import ExamService from '@/service/ExamService'
 
 @Component
 export default class ExamStatusBarView extends Vue {
+  examService = ExamService
 }
 </script>
 

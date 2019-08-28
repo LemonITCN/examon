@@ -22,7 +22,5 @@ findStoreModule({
 })
 
 export default new Vuex.Store({
-  modules: {
-    exam
-  }
+  modules: result
 })

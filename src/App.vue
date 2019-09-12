@@ -3,6 +3,19 @@
     <router-view class="root-router"/>
   </div>
 </template>
+<script lang="ts">
+
+import {Component, Vue} from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {
+  mounted() {
+    console.log('jahahahah')
+    // @ts-ignore
+    window.parent.postMessage({type: 'ready', body: {}}, '*')
+  }
+}
+</script>
 
 <style>
   * {

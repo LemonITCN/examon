@@ -8,7 +8,8 @@
       {{fixZero(examService.getTimerSeconds() % 60)}}
     </div>
     <div class="title-type">
-      {{examService.getCurrentQuestion() !== undefined ? (examService.getCurrentQuestion().answerList.length > 1 ? '多选题'
+      {{examService.getCurrentQuestion() !== undefined ? (examService.getCurrentQuestion().trueOptions.length > 1 ?
+      '多选题'
       : '单选题') : '初始化...'}}
     </div>
   </div>

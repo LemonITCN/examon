@@ -3,12 +3,18 @@ import ExamInfo from '@/model/ExamInfo'
 import StoreDefineExam from '@/define/store/exam'
 import NameUtil from '@/utils/NameUtil'
 import ExamQuestion from '@/model/ExamQuestion'
+import ExamResult from '@/model/ExamResult'
 
 export default class ExamService {
 
   private static examInterval: any
+  private static studentAnswer: { [index: string]: string } = {}
 
-  public static initExamInfo(examInfo: ExamInfo): void {
+  public static examEndListener: (result: ExamResult) => {}
+
+  public static startExam(examInfo: ExamInfo, examEndListener: any): void {
+    this.studentAnswer = {}
+    this.examEndListener = examEndListener
     $store.commit(NameUtil.CSCK(
       StoreDefineExam.SET_EXAM_INFO
     ), examInfo)
@@ -16,11 +22,18 @@ export default class ExamService {
       StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX
     ), 0)
     document.title = examInfo.name
+    if (ExamService.examInterval !== undefined) {
+      clearInterval(ExamService.examInterval)
+    }
     this.startTimer(examInfo.countDownTimeSeconds)
   }
 
   public static getExamInfo(): ExamInfo {
     return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_INFO)]
+  }
+
+  public static saveStudentChooseOption(questionDataKey: string, answer: string) {
+    this.studentAnswer[questionDataKey] = answer
   }
 
   /**
@@ -37,6 +50,20 @@ export default class ExamService {
     return true
   }
 
+  /**
+   * 切换到上一题
+   * @return 是否有上一题（当所有题都结束，返回false）
+   */
+  public static lastQuestion(): boolean {
+    let examInfo: ExamInfo = $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_INFO)]
+    let currentQuestionIndex: number = $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_QUESTION_CURRENT_INDEX)]
+    if (currentQuestionIndex === 0) {
+      return false
+    }
+    $store.commit(NameUtil.CSCK(StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX), currentQuestionIndex - 1)
+    return true
+  }
+
   public static getCurrentQuestionIndex(): number {
     return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_QUESTION_CURRENT_INDEX)]
   }
@@ -49,9 +76,13 @@ export default class ExamService {
     return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_TIMER_SECONDS)]
   }
 
-  public static stopExam(): number {
+  public static stopExam(): ExamResult {
     this.endTimer()
-    return this.getTimerSeconds()
+    let examResult: ExamResult = new ExamResult()
+    examResult.useSeconds = this.getTimerSeconds();
+    examResult.studentAnswer = this.studentAnswer
+    this.examEndListener !== undefined && this.examEndListener(examResult)
+    return examResult
   }
 
   private static startTimer(countDownTimeSeconds: number) {

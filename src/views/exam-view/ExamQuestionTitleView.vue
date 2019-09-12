@@ -2,15 +2,15 @@
   <div class="exam-title-view-impl">
     <div class="exam-title-content">
       <div class="question-title-content">
-        {{question.questionTitle}}
+        {{question.titleContent}}
       </div>
-      <div class="question-img-area" v-if="question.imageUrl !== ''">
-        <img :src="question.imageUrl" class="question-img-content">
+      <div class="question-img-area" v-if="question.titleImageUrl !== ''">
+        <img :src="question.titleImageUrl" class="question-img-content">
       </div>
-      <div class="question-audio-area" v-if="question.audioUrl !== ''">
+      <div class="question-audio-area" v-if="question.titleAudioUrl !== ''">
         <div class="question-audio-intro">点击下方操作按钮来播放试题音频</div>
         <audio controls ref="qAudio">
-          <source :src="question.audioUrl" type="audio/mpeg">
+          <source :src="question.titleAudioUrl" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -33,7 +33,7 @@ export default class ExamTitleView extends Vue {
 
   @Watch('currentQuestionIndex')
   onQuestionChange(index: number) {
-    if (this.question.audioUrl !== '' &&
+    if (this.question.titleAudioUrl !== '' &&
       ExamService.getExamInfo().questionList.indexOf(this.question) === (index - 1)) {
       // @ts-ignore
       if (!this.$refs.qAudio.paused) {

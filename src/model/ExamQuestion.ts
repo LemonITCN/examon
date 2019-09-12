@@ -1,9 +1,10 @@
 import ExamQuestionChoice from '@/model/ExamQuestionChoice'
 
 export default class ExamQuestion {
-  questionTitle: string = ''
-  imageUrl: string = ''
-  audioUrl: string = ''
-  choiceList: ExamQuestionChoice[] = []
-  answerList: number[] = []
+  dataKey: string = ''
+  titleContent: string = ''
+  titleImageUrl: string = ''
+  titleAudioUrl: string = ''
+  choiceOptions: ExamQuestionChoice[] = []
+  trueOptions: string = ''
 }

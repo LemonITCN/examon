@@ -28,10 +28,11 @@ export default class ExamQuestionCardView extends Vue {
 
   .exam-title-view {
     flex-grow: 1;
+    overflow: scroll;
   }
 
   .exam-answer-view {
-    height: 300px;
+    min-height: 300px;
   }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="exam-answer-options-view-impl">
-    <div class="choice-option" v-for="(choice, cIndex) in question.choiceList" :key="cIndex + ''"
-         @click="gotoNextQuestion()">
+    <div class="choice-option" v-for="(choice, cIndex) in question.choiceOptions" :key="cIndex + ''"
+         @click="gotoNextQuestion(cIndex + '')">
       <div class="choice-no">{{String.fromCharCode(65 + cIndex)}}</div>
       <div class="choice-content">{{choice.content}}</div>
     </div>
@@ -18,8 +18,12 @@ export default class ExamAnswerOptionsView extends Vue {
   @Prop()
   question!: ExamQuestion
 
-  gotoNextQuestion() {
-    ExamService.nextQuestion()
+  gotoNextQuestion(option: string) {
+    ExamService.saveStudentChooseOption(ExamService.getCurrentQuestion().dataKey, option)
+    if (!ExamService.nextQuestion()) {
+      // 最后一题
+      ExamService.stopExam()
+    }
   }
 }
 </script>

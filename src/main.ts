@@ -10,9 +10,12 @@ Vue.config.productionTip = false
 // @ts-ignore
 window.addEventListener('message', function (event) {
   if (event.data.type === 'start-exam') {
-    ExamService.startExam(JSON.parse(event.data.body.examInfo), (examResult: ExamResult) => {
+    ExamService.startExam(event.data.body.examInfo, (examResult: ExamResult) => {
       window.parent.postMessage({type: 'examEnd', body: {examResult: examResult}}, '*')
     })
+  }
+  if (event.data.type === 'start-review') {
+    ExamService.startReview(event.data.body.examInfo, event.data.body.studentAnswer)
   }
 })
 

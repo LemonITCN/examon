@@ -10,7 +10,7 @@
                                  v-for="(question, qIndex) in examService.getExamInfo().questionList"
                                  :key="qIndex + ''"
                                  v-show="examService.getCurrentQuestionIndex() === qIndex"
-                                 :question="question">
+                                 :question="question" :only-preview="false">
         </exam-question-card-view>
       </transition-group>
     </div>
@@ -58,7 +58,6 @@ export default class ExamView extends Vue {
     width: 100%;
     height: 100%;
     border-radius: 3px;
-    animate-duration: 21s;
   }
 
 

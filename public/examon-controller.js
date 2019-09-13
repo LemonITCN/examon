@@ -6,8 +6,10 @@ function ExamonController(iframeDom) {
   this.onExamEndListener = function (examResult) {
   }
 
+  console.log('Welcome to EXAMON System!')
+
   let self = this
-  window.addEventListener('message', function (event) {
+  var messageListener = function (event) {
     if (event.data.type === 'ready') {
       self.onReadyListener !== undefined && self.onReadyListener()
     }
@@ -15,7 +17,9 @@ function ExamonController(iframeDom) {
       console.log('eee999000')
       self.onExamEndListener !== undefined && self.onExamEndListener(event.data.body.examResult)
     }
-  })
+  }
+  window.removeEventListener('message', messageListener, false)
+  window.addEventListener('message', messageListener, false)
 
   this.setOnReadyListener = function (listener) {
     this.onReadyListener = listener
@@ -37,7 +41,12 @@ function ExamonController(iframeDom) {
 
   this.startExam = function (examInfo) {
     this.goto('/exam')
-    this.postMessage('start-exam', {examInfo: JSON.stringify(examInfo)})
+    this.postMessage('start-exam', {examInfo: examInfo})
+  }
+
+  this.startReview = function (examInfo, studentAnswer) {
+    this.goto('/review')
+    this.postMessage('start-review', {examInfo: examInfo, studentAnswer: studentAnswer})
   }
 
 }

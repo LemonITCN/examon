@@ -4,12 +4,14 @@ import ExamInfo from '@/model/ExamInfo'
 export interface State {
   examQuestionCurrentIndex: number
   examInfo: ExamInfo
+  studentAnswer: { [index: string]: string }
   timerSeconds: number
 }
 
 const state: State = {
   examQuestionCurrentIndex: 0,
   examInfo: new ExamInfo(),
+  studentAnswer: {},
   timerSeconds: 0
 }
 
@@ -19,6 +21,9 @@ const getters = {
   },
   [StoreDefineExam.GET_EXAM_INFO](state: State) {
     return state.examInfo
+  },
+  [StoreDefineExam.GET_STUDENT_ANSWER](state: State) {
+    return state.studentAnswer
   },
   [StoreDefineExam.GET_EXAM_TIMER_SECONDS](state: State) {
     return state.timerSeconds
@@ -31,6 +36,9 @@ const mutations = {
   },
   [StoreDefineExam.SET_EXAM_INFO](state: State, examInfo: ExamInfo) {
     state.examInfo = examInfo
+  },
+  [StoreDefineExam.SET_STUDENT_ANSWER](state: State, studentAnswer: { [index: string]: string }) {
+    state.studentAnswer = studentAnswer
   },
   [StoreDefineExam.SET_EXAM_TIMER_SECONDS](state: State, timerSeconds: number) {
     state.timerSeconds = timerSeconds

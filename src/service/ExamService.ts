@@ -13,8 +13,10 @@ export default class ExamService {
   public static examEndListener: (result: ExamResult) => {}
 
   public static startExam(examInfo: ExamInfo, examEndListener: any): void {
-    this.studentAnswer = {}
     this.examEndListener = examEndListener
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_STUDENT_ANSWER
+    ), {})
     $store.commit(NameUtil.CSCK(
       StoreDefineExam.SET_EXAM_INFO
     ), examInfo)
@@ -26,6 +28,23 @@ export default class ExamService {
       clearInterval(ExamService.examInterval)
     }
     this.startTimer(examInfo.countDownTimeSeconds)
+  }
+
+  public static startReview(examInfo: ExamInfo, studentAnswer: { [index: string]: string }) {
+    this.studentAnswer = studentAnswer
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_EXAM_INFO
+    ), examInfo)
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_STUDENT_ANSWER
+    ), studentAnswer)
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX
+    ), 0)
+    document.title = examInfo.name
+    if (ExamService.examInterval !== undefined) {
+      clearInterval(ExamService.examInterval)
+    }
   }
 
   public static getExamInfo(): ExamInfo {

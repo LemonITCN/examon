@@ -36,6 +36,7 @@ export default class ExamReview extends Vue {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
+    justify-content: space-between;
   }
 
   .review-exam-question-card {

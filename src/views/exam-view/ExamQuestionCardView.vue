@@ -18,7 +18,7 @@ export default class ExamQuestionCardView extends Vue {
   @Prop()
   question!: ExamQuestion
   @Prop()
-  onlyPreview: boolean = false
+  onlyPreview!: boolean
 }
 </script>
 

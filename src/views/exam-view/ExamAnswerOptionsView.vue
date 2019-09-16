@@ -6,7 +6,8 @@
          v-for="(choice, cIndex) in question.choiceOptions" :key="cIndex + ''"
          @click="gotoNextQuestion(cIndex + '')">
       <div class="choice-no">{{String.fromCharCode(65 + cIndex)}}
-        <img v-if="question.trueOptions.indexOf(cIndex + '') >= 0" class="true-icon" src="ok.png">
+        <img v-if="onlyPreview === true && question.trueOptions.indexOf(cIndex + '') >= 0" class="true-icon"
+             src="ok.png">
       </div>
       <div class="choice-content">{{choice.content}}</div>
     </div>
@@ -25,7 +26,7 @@ export default class ExamAnswerOptionsView extends Vue {
   @Prop()
   question!: ExamQuestion
   @Prop()
-  onlyPreview: boolean = false
+  onlyPreview!: boolean
   studentAnswer: string = ''
 
   mounted() {

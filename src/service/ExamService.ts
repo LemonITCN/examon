@@ -16,8 +16,8 @@ export default class ExamService {
     $store.commit(NameUtil.CSCK(StoreDefineExam.SET_EXAMON_MDOE), examonMode)
   }
 
-  public static getExmaonMode() {
-    return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_INFO)]
+  public static getExamonMode(): string {
+    return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAMON_MDOE)]
   }
 
   public static startExam(examInfo: ExamInfo, examEndListener: any): void {

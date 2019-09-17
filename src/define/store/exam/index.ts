@@ -8,4 +8,6 @@ export default class StoreDefineExam {
   public static readonly GET_STUDENT_ANSWER = StoreDefineExam.NAMESPACE + 'get_student_answer'
   public static readonly SET_EXAM_TIMER_SECONDS = StoreDefineExam.NAMESPACE + 'set_exam_timer_seconds'
   public static readonly GET_EXAM_TIMER_SECONDS = StoreDefineExam.NAMESPACE + 'get_exam_timer_seconds'
+  public static readonly SET_EXAMON_MDOE = StoreDefineExam.NAMESPACE + 'set_examon_mdoe'
+  public static readonly GET_EXAMON_MDOE = StoreDefineExam.NAMESPACE + 'get_examon_mdoe'
 }

@@ -26,6 +26,8 @@ import ExamService from '@/service/ExamService'
 export default class ExamTitleView extends Vue {
   @Prop()
   question!: ExamQuestion
+  @Prop()
+  questionIndex!: number
 
   get currentQuestionIndex(): number {
     return ExamService.getCurrentQuestionIndex()
@@ -33,15 +35,14 @@ export default class ExamTitleView extends Vue {
 
   @Watch('currentQuestionIndex')
   onQuestionChange(index: number) {
-    if (this.question.titleAudioUrl !== '' &&
-      ExamService.getExamInfo().questionList.indexOf(this.question) === (index - 1)) {
+    console.log(this.questionIndex)
+    console.log(index)
+    console.log(this.question.titleAudioUrl !== '' && ExamService.getCurrentQuestionIndex() !== index)
+    if (this.question.titleAudioUrl !== '' && this.questionIndex !== index) {
       // @ts-ignore
       if (!this.$refs.qAudio.paused) {
-        console.log('关闭')
         // @ts-ignore
         this.$refs.qAudio.pause()
-        // @ts-ignore
-        this.$refs.qAudio.load()
       }
     }
   }

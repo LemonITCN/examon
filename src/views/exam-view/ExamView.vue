@@ -7,6 +7,7 @@
           enter-active-class="animated faster slideInRight"
           leave-active-class="animated slideOutLeft">
         <exam-question-card-view class="exam-question-card"
+                                 :question-index="qIndex"
                                  v-for="(question, qIndex) in examService.getExamInfo().questionList"
                                  :key="qIndex + ''"
                                  v-show="examService.getCurrentQuestionIndex() === qIndex"

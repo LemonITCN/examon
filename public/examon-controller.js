@@ -3,6 +3,9 @@ function ExamonController(iframeDom) {
   this.onReadyListener = function () {
   }
 
+  this.onClosePreviewListener = function () {
+  }
+
   this.onExamEndListener = function (examResult) {
   }
 
@@ -13,8 +16,11 @@ function ExamonController(iframeDom) {
     if (event.data.type === 'ready') {
       self.onReadyListener !== undefined && self.onReadyListener()
     }
+    if (event.data.type === 'closePreview') {
+      console.log('cloooooooo')
+      self.onClosePreviewListener !== undefined && self.onClosePreviewListener()
+    }
     if (event.data.type === 'examEnd') {
-      console.log('eee999000')
       self.onExamEndListener !== undefined && self.onExamEndListener(event.data.body.examResult)
     }
   }
@@ -25,14 +31,19 @@ function ExamonController(iframeDom) {
     this.onReadyListener = listener
   }
 
+  this.setOnCloseReviewListener = function (listener) {
+    this.onClosePreviewListener = listener
+  }
+
   this.setOnExamEndListener = function (listener) {
     this.onExamEndListener = listener
   }
 
   this.goto = function (routerPath) {
-    console.log(this.ed.src)
-    this.ed.src = this.ed.src.split('#')[0] + '#' + routerPath
-    console.log(this.ed.src)
+    // console.log(this.ed.src)
+    this.ed.contentWindow.history.replaceState(null, null, this.ed.src.split('#')[0] + '#' + routerPath)
+    // this.ed.src = this.ed.src.split('#')[0] + '#' + routerPath
+    // console.log(this.ed.src)
   }
 
   this.postMessage = function (type, dataBody) {
@@ -40,12 +51,12 @@ function ExamonController(iframeDom) {
   }
 
   this.startExam = function (examInfo) {
-    this.goto('/exam')
+    // this.goto('/exam')
     this.postMessage('start-exam', {examInfo: examInfo})
   }
 
   this.startReview = function (examInfo, studentAnswer) {
-    this.goto('/review')
+    // this.goto('/review')
     this.postMessage('start-review', {examInfo: examInfo, studentAnswer: studentAnswer})
   }
 

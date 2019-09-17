@@ -1,6 +1,6 @@
 <template>
   <div class="exam-question-card-view-impl">
-    <exam-title-view class="exam-title-view" :question="question"></exam-title-view>
+    <exam-title-view class="exam-title-view" :question-index="questionIndex" :question="question"></exam-title-view>
     <exam-answer-options-view class="exam-answer-view" :question="question" :only-preview="onlyPreview"></exam-answer-options-view>
   </div>
 </template>
@@ -19,6 +19,8 @@ export default class ExamQuestionCardView extends Vue {
   question!: ExamQuestion
   @Prop()
   onlyPreview!: boolean
+  @Prop()
+  questionIndex!: number
 }
 </script>
 

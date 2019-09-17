@@ -12,7 +12,16 @@ export default class ExamService {
 
   public static examEndListener: (result: ExamResult) => {}
 
+  public static setExamonMode(examonMode: string) {
+    $store.commit(NameUtil.CSCK(StoreDefineExam.SET_EXAMON_MDOE), examonMode)
+  }
+
+  public static getExmaonMode() {
+    return $store.getters[NameUtil.CSCK(StoreDefineExam.GET_EXAM_INFO)]
+  }
+
   public static startExam(examInfo: ExamInfo, examEndListener: any): void {
+    this.setExamonMode('exam')
     this.examEndListener = examEndListener
     $store.commit(NameUtil.CSCK(
       StoreDefineExam.SET_STUDENT_ANSWER
@@ -31,6 +40,7 @@ export default class ExamService {
   }
 
   public static startReview(examInfo: ExamInfo, studentAnswer: { [index: string]: string }) {
+    this.setExamonMode('review')
     this.studentAnswer = studentAnswer
     $store.commit(NameUtil.CSCK(
       StoreDefineExam.SET_EXAM_INFO
@@ -101,7 +111,19 @@ export default class ExamService {
     examResult.useSeconds = this.getTimerSeconds();
     examResult.studentAnswer = this.studentAnswer
     this.examEndListener !== undefined && this.examEndListener(examResult)
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX
+    ), -1)
+    this.setExamonMode('wait')
     return examResult
+  }
+
+  public static stopReview() {
+    $store.commit(NameUtil.CSCK(
+      StoreDefineExam.SET_EXAM_QUESTION_CURRENT_INDEX
+    ), -1)
+    window.parent.postMessage({type: 'closePreview', body: {}}, '*')
+    this.setExamonMode('wait')
   }
 
   private static startTimer(countDownTimeSeconds: number) {

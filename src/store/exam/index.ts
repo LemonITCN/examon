@@ -5,14 +5,16 @@ export interface State {
   examQuestionCurrentIndex: number
   examInfo: ExamInfo
   studentAnswer: { [index: string]: string }
-  timerSeconds: number
+  timerSeconds: number,
+  examonMode: string
 }
 
 const state: State = {
   examQuestionCurrentIndex: 0,
   examInfo: new ExamInfo(),
   studentAnswer: {},
-  timerSeconds: 0
+  timerSeconds: 0,
+  examonMode: 'wait'
 }
 
 const getters = {
@@ -27,6 +29,9 @@ const getters = {
   },
   [StoreDefineExam.GET_EXAM_TIMER_SECONDS](state: State) {
     return state.timerSeconds
+  },
+  [StoreDefineExam.GET_EXAMON_MDOE](state: State) {
+    return state.examonMode
   }
 }
 
@@ -42,6 +47,9 @@ const mutations = {
   },
   [StoreDefineExam.SET_EXAM_TIMER_SECONDS](state: State, timerSeconds: number) {
     state.timerSeconds = timerSeconds
+  },
+  [StoreDefineExam.SET_EXAMON_MDOE](state: State, examonMode: string) {
+    state.examonMode = examonMode
   }
 }
 

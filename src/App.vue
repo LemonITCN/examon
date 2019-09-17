@@ -1,13 +1,18 @@
 <template>
   <div id="app">
+    <exam-view class="root-router"></exam-view>
+    <exam-review class="root-router"></exam-review>
     <router-view class="root-router"/>
   </div>
 </template>
 <script lang="ts">
 
 import {Component, Vue} from 'vue-property-decorator'
-
-@Component
+import ExamView from '@/views/exam-view/ExamView.vue'
+import ExamReview from '@/views/exam-view/ExamReview.vue'
+@Component({
+  components: {ExamReview, ExamView}
+})
 export default class App extends Vue {
   mounted() {
     // @ts-ignore
